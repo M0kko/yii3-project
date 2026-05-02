@@ -2,7 +2,7 @@ FROM composer/composer:2-bin AS composer
 
 FROM dunglas/frankenphp:1-php8.2-bookworm AS base
 
-RUN apt update && apt -y install \
+RUN apt-get update && apt -y install \
     unzip
 
 RUN install-php-extensions \

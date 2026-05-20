@@ -7,6 +7,8 @@ use App\Web\HomePage\Action as HomePageAction;
 use Yiisoft\Router\Route;
 use App\Web\Api\ModulesHandler;
 use App\Web\ProjectPage\ProjectPageHandler;
+use App\Web\Feedback\FeedbackPageHandler;
+use App\Web\Feedback\FeedbackSubmitHandler;
 return [
  Route::get('/')
  ->action(HomePageAction::class)
@@ -25,6 +27,11 @@ return [
  ->name('project-page'),
  Route::get('/api/modules')
  ->action(ModulesHandler::class)
- ->name('api/modules')
+ ->name('api/modules'),
+ Route::get('/feedback')
+ ->action(FeedbackPageHandler::class)
+ ->name('feedback'),
+ Route::post('/feedback')   
+ ->action(FeedbackSubmitHandler::class)
+ ->name('feedback-submit'),
 ];
-

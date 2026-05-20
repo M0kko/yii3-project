@@ -44,8 +44,10 @@
         "symfony/console": "^7.4.7 || ^8.0.7",
         "yiisoft/aliases": "^3.1.1",
         "yiisoft/assets": "^5.1.2",
+        "yiisoft/cache-file": "^3.2",
         "yiisoft/config": "^1.6.2",
         "yiisoft/csrf": "^2.2.3",
+        "yiisoft/db-mysql": "^2.0",
         "yiisoft/definitions": "^3.4.1",
         "yiisoft/di": "^1.4.1",
         "yiisoft/error-handler": "^4.3.2",
@@ -58,6 +60,7 @@
         "yiisoft/router": "^4.0.2",
         "yiisoft/router-fastroute": "^4.0.3",
         "yiisoft/session": "^3.0.1",
+        "yiisoft/validator": "^2.5",
         "yiisoft/view": "^12.2.4",
         "yiisoft/yii-console": "^2.4.2",
         "yiisoft/yii-http": "^1.1.1",
@@ -66,7 +69,6 @@
         "yiisoft/yii-view-renderer": "^7.4.1"
     },
     "require-dev": {
-        "vlucas/phpdotenv": "^5.6",
         "codeception/c3": "^2.9",
         "codeception/codeception": "^5.3.5",
         "codeception/module-asserts": "^3.3.0",
@@ -76,7 +78,9 @@
         "phpunit/phpunit": "^11.5.55",
         "rector/rector": "^2.3.9",
         "shipmonk/composer-dependency-analyser": "^1.8.4",
-        "vimeo/psalm": "^6.16.1"
+        "vimeo/psalm": "^6.16.1",
+        "vlucas/phpdotenv": "^5.6",
+        "yiisoft/db-migration": "^2.0"
     },
     "autoload": {
         "psr-4": {

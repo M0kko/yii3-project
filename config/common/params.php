@@ -35,4 +35,9 @@ return [
             Reference::to(CsrfViewInjection::class),
         ],
     ],
+
+    'yiisoft/db-migration' => [
+        'newMigrationNamespace' => 'App\\Migration',
+        'sourceNamespaces' => ['App\\Migration'],
+    ],
 ];

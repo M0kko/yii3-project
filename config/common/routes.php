@@ -31,7 +31,7 @@ return [
  Route::get('/feedback')
  ->action(FeedbackPageHandler::class)
  ->name('feedback'),
- Route::post('/feedback')   
+ Route::post('/feedback')
  ->action(FeedbackSubmitHandler::class)
- ->name('feedback-submit'),
+ ->name('feedback/submit'),
 ];

@@ -9,6 +9,9 @@ use App\Web\Api\ModulesHandler;
 use App\Web\ProjectPage\ProjectPageHandler;
 use App\Web\Feedback\FeedbackPageHandler;
 use App\Web\Feedback\FeedbackSubmitHandler;
+
+use App\Web\ProjectModule\ProjectModuleCreateHandler;
+use App\Web\ProjectModule\ProjectModuleListHandler;
 return [
  Route::get('/')
  ->action(HomePageAction::class)
@@ -34,4 +37,10 @@ return [
  Route::post('/feedback')
  ->action(FeedbackSubmitHandler::class)
  ->name('feedback/submit'),
+ Route::get('/project-modules')
+ ->action(ProjectModuleListHandler::class)
+ ->name('project-modules/list'),
+ Route::post('/project-modules')
+ ->action(ProjectModuleCreateHandler::class)
+ ->name('project-modules/create'),
 ];

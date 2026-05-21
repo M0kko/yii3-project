@@ -12,30 +12,46 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Yiisoft\Csrf\CsrfTokenInterface;
 
-final class ProjectModuleListHandler implements RequestHandlerInterface
+final class ProjectModuleEditHandler implements RequestHandlerInterface
 {
     public function __construct(
         private ResponseFactoryInterface $responseFactory,
         private ProjectModuleRepository $repository,
-        private CsrfTokenInterface $csrfToken, // <-- CSRF токен
+        private CsrfTokenInterface $csrfToken, // <-- Внедряем CSRF
     ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $queryParams = $request->getQueryParams();
+        $id = (int)($queryParams['id'] ?? 0);
+
+        $record = $this->repository->getById($id);
+
+        if ($record === null) {
+            $response = $this->responseFactory->createResponse(404);
+            $response->getBody()->write('Запись не найдена.');
+            return $response->withHeader('Content-Type', 'text/plain; charset=utf-8');
+        }
+
+        $formData = new ProjectModuleData();
+        $formData->title = (string)$record['title'];
+        $formData->description = (string)$record['description'];
+        $formData->status = (string)$record['status'];
+        $formData->sort = (string)$record['sort'];
+
         $renderer = new PageRenderer();
 
         $html = $renderer->renderPage(
-            __DIR__ . '/template.php',
+            __DIR__ . '/edit-template.php',
             [
-                'modules' => $this->repository->getAll(),
-                'formData' => new ProjectModuleData(),
+                'id' => $id,
+                'formData' => $formData,
                 'errors' => [],
                 'isSuccess' => false,
-                'deleteSuccess' => false,
                 'csrfToken' => $this->csrfToken->getValue(), // <-- Передаем в шаблон
             ],
-            'Модули проекта',
+            'Редактирование модуля проекта',
             [
                 '/css/site.css',
                 '/css/project-module.css',

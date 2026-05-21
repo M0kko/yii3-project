@@ -21,4 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
             descriptionField.style.borderColor = '#bcc8df';
         }
     });
+
+    const deleteForms = document.querySelectorAll('.delete-form');
+    
+    deleteForms.forEach((form) => {
+        form.addEventListener('submit', (event) => {
+            const confirmed = window.confirm('Выполнить удаление выбранной записи?');
+            if (!confirmed) {
+                event.preventDefault();
+            }
+        });
+    });
 });

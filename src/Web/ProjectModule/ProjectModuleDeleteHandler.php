@@ -12,17 +12,26 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Yiisoft\Csrf\CsrfTokenInterface;
 
-final class ProjectModuleListHandler implements RequestHandlerInterface
+final class ProjectModuleDeleteHandler implements RequestHandlerInterface
 {
     public function __construct(
         private ResponseFactoryInterface $responseFactory,
         private ProjectModuleRepository $repository,
-        private CsrfTokenInterface $csrfToken, // <-- CSRF токен
+        private CsrfTokenInterface $csrfToken, // <-- Внедряем CSRF
     ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $input = $request->getParsedBody();
+        $input = is_array($input) ? $input : [];
+
+        $id = (int)($input['id'] ?? 0);
+
+        if ($this->repository->getById($id) !== null) {
+            $this->repository->delete($id);
+        }
+
         $renderer = new PageRenderer();
 
         $html = $renderer->renderPage(
@@ -32,8 +41,8 @@ final class ProjectModuleListHandler implements RequestHandlerInterface
                 'formData' => new ProjectModuleData(),
                 'errors' => [],
                 'isSuccess' => false,
-                'deleteSuccess' => false,
-                'csrfToken' => $this->csrfToken->getValue(), // <-- Передаем в шаблон
+                'deleteSuccess' => true,
+                'csrfToken' => $this->csrfToken->getValue(), // <-- Нужно для формы добавления на этой странице
             ],
             'Модули проекта',
             [
